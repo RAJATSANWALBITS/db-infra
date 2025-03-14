@@ -1,2 +1,3 @@
 Some text here
-Addling this line
+Adding this line
+This is new line
