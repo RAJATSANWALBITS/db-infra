@@ -42,7 +42,7 @@ jobs:
 
   Eval-Deploy-Changeset:
     needs: [Eval-Create-Changeset ]
-    if: always() && (github.event.input.evaluation == 'Yes' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation:.result == 'success')
+    if: always() && (github.event.input.evaluation == 'Yes' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
