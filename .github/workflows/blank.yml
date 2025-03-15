@@ -17,8 +17,8 @@ on:
         description: 'Is evaluation needed. Seriously ?'
         type: choice
         options:
-          - "true"
-          - "false"
+          - yes
+          - no
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -33,8 +33,7 @@ jobs:
   # This workflow contains a single job called "build"
   Eval-Create-Changeset:
     needs: [ Template-Validation ]
-    environment: evaluation
-    if: (github.events.inputs.inputs == 'true')
+    if: (github.events.inputs.choice == 'yes')
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -49,7 +48,7 @@ jobs:
 
   Eval-Deploy-Changeset:
     needs: [Eval-Create-Changeset ]
-    if: always() && (github.event.input.inputs == 'true' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation.result == 'success')
+    if: always() && (github.event.inputs.choice == 'yes' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
