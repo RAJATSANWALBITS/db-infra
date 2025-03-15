@@ -25,6 +25,7 @@ jobs:
         run: echo Hello, world!
   # This workflow contains a single job called "build"
   Eval-Create-Changeset:
+    needs: [ Template-Validation ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -38,6 +39,7 @@ jobs:
         run: echo Hello, world!
 
   Eval-Deploy-Changeset:
+    needs: [Eval-Create-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +48,7 @@ jobs:
 
           
   Development-Create-changeset:
+    needs: [ Eval-Deploy-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -54,6 +57,7 @@ jobs:
 
           
   Development-Deploy-changeset:
+    needs: [ Development-Create-changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,6 +66,7 @@ jobs:
  
 
   Ftest-Create-Changeset:
+    needs: [ Development-Deploy-changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -71,6 +76,7 @@ jobs:
 
 
   Ftest-Deploy-changeset:
+    needs: [ Ftest-Create-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -80,6 +86,7 @@ jobs:
 
 
   Stage-Create-Changeset:
+    needs: [ Ftest-Deploy-changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -89,6 +96,7 @@ jobs:
 
 
   Stage-Deploy-changeset:
+    needs: [ Stage-Create-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -99,6 +107,7 @@ jobs:
 
 
   Ptest-Create-Changeset:
+    needs: [ Stage-Deploy-changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -108,6 +117,7 @@ jobs:
 
 
   Ptest-Deploy-changeset:
+    needs: [ Ptest-Create-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -117,6 +127,7 @@ jobs:
 
 
   Prod-Create-Changeset:
+    needs: [ Ptest-Deploy-changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -126,6 +137,7 @@ jobs:
 
 
   Prod-Deploy-changeset:
+    needs: [ Prod-Create-Changeset ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
