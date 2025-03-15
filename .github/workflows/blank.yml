@@ -139,7 +139,7 @@ jobs:
 
   Prod-Create-Changeset:
     needs: [ Ptest-Deploy-changeset ]
-    if: always() && (needs.test-Deploy-changeset.result == 'success')
+    if: always() && (needs.Ptest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
