@@ -62,6 +62,7 @@ jobs:
           
   Development-Deploy-changeset:
     needs: [ Development-Create-changeset ]
+    if: always() && (needs.Development-Create-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -71,6 +72,7 @@ jobs:
 
   Ftest-Create-Changeset:
     needs: [ Development-Deploy-changeset ]
+    if: always() && (needs.Development-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -81,6 +83,7 @@ jobs:
 
   Ftest-Deploy-changeset:
     needs: [ Ftest-Create-Changeset ]
+    if: always() && (needs.Ftest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -91,6 +94,7 @@ jobs:
 
   Stage-Create-Changeset:
     needs: [ Ftest-Deploy-changeset ]
+    if: always() && (needs.Ftest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -101,6 +105,7 @@ jobs:
 
   Stage-Deploy-changeset:
     needs: [ Stage-Create-Changeset ]
+    if: always() && (needs.Stage-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -112,6 +117,7 @@ jobs:
 
   Ptest-Create-Changeset:
     needs: [ Stage-Deploy-changeset ]
+    if: always() && (needs.Stage-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -122,6 +128,7 @@ jobs:
 
   Ptest-Deploy-changeset:
     needs: [ Ptest-Create-Changeset ]
+    if: always() && (needs.Ptest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -132,6 +139,7 @@ jobs:
 
   Prod-Create-Changeset:
     needs: [ Ptest-Deploy-changeset ]
+    if: always() && (needs.test-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -142,6 +150,7 @@ jobs:
 
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
+    if: always() && (needs.Prod-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
