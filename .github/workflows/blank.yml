@@ -15,8 +15,6 @@ on:
     inputs:
       choice:
         description: 'Is evaluation needed?'
-        required: true
-        default: 'Yes'
         type: choice
         options:
           - Yes
