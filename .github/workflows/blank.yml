@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       choice:
-        description: 'Is evaluation needed?'
+        description: 'Is evaluation needed. Seriously ?'
         type: choice
         options:
           - Yes
