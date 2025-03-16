@@ -33,22 +33,16 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation validate-template --template-body file://s3_bucket.yaml
+          aws cloudformation validate-template --template-body .github/workflows/blank.yml
            
 
   # This workflow contains a single job called "build"
   Eval-Create-Changeset:
     needs: [ Template-Validation ]
     if: (github.events.inputs.choice == 'yes')
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
 
