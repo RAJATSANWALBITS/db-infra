@@ -33,7 +33,7 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation validate-template --template-url file://s3_bucket.yaml
+          aws cloudformation validate-template --template-body file://s3_bucket.yaml
            
 
   # This workflow contains a single job called "build"
@@ -81,7 +81,7 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation create-change-set --stack-name s3Bucket --template-url file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
+          aws cloudformation create-change-set --stack-name s3Bucket --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
           
           
   Development-Deploy-changeset:
