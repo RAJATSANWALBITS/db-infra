@@ -67,6 +67,7 @@ jobs:
       - name: Run a one-line script
         run: | 
            echo "Environment secrets Aws Access Key value is ${{ secrets.AWS_ACCESS_KEY_ID }}" 
+           echo "Region is: ${{ vars.AWS_REGION }}"
           
   Development-Deploy-changeset:
     needs: [ Development-Create-changeset ]
