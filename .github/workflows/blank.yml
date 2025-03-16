@@ -48,7 +48,6 @@ jobs:
 
   Eval-Deploy-Changeset:
     needs: [Eval-Create-Changeset ]
-    environment: development
     if: always() && (github.event.inputs.choice == 'yes' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -66,11 +65,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
-        run: echo Hello, world!
-
+        run: | 
+           echo "Environment secrets Aws Access Key value is ${{ secrets.AWS_ACCESS_KEY_ID }}" 
           
   Development-Deploy-changeset:
     needs: [ Development-Create-changeset ]
+    environment: development
     if: always() && (needs.Development-Create-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -81,6 +81,7 @@ jobs:
 
   Ftest-Create-Changeset:
     needs: [ Development-Deploy-changeset ]
+    environment: ftest
     if: always() && (needs.Development-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -92,6 +93,7 @@ jobs:
 
   Ftest-Deploy-changeset:
     needs: [ Ftest-Create-Changeset ]
+    environment: ftest
     if: always() && (needs.Ftest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -101,8 +103,10 @@ jobs:
  
 
 
+
   Stage-Create-Changeset:
     needs: [ Ftest-Deploy-changeset ]
+    environment: stage
     if: always() && (needs.Ftest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -114,6 +118,7 @@ jobs:
 
   Stage-Deploy-changeset:
     needs: [ Stage-Create-Changeset ]
+    environment: stage
     if: always() && (needs.Stage-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -126,6 +131,7 @@ jobs:
 
   Ptest-Create-Changeset:
     needs: [ Stage-Deploy-changeset ]
+    environment: ptest
     if: always() && (needs.Stage-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -137,6 +143,7 @@ jobs:
 
   Ptest-Deploy-changeset:
     needs: [ Ptest-Create-Changeset ]
+    environment: ptest
     if: always() && (needs.Ptest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -148,6 +155,7 @@ jobs:
 
   Prod-Create-Changeset:
     needs: [ Ptest-Deploy-changeset ]
+    environment: production
     if: always() && (needs.Ptest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -159,6 +167,7 @@ jobs:
 
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
+    environment: production
     if: always() && (needs.Prod-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
