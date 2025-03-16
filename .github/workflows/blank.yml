@@ -28,8 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Template_Validation
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ vars.AWS_REGION }}    
+          aws cloudformation validate-template --template-body file://s3_bucket.yaml
+           
+
   # This workflow contains a single job called "build"
   Eval-Create-Changeset:
     needs: [ Template-Validation ]
@@ -76,6 +82,13 @@ jobs:
          # aws-access-key-id: ${{ secrets.ACCESS_KEY }}
           #aws-secret-access-key: ${{ secrets.ACCESS_KEY_SECRET }}
           #aws-region: ${{ vars.AWS_REGION }}
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ vars.AWS_REGION }}    
+          aws cloudformation create-change-set --stack-name my-application --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
+          
           
   Development-Deploy-changeset:
     needs: [ Development-Create-changeset ]
@@ -184,12 +197,12 @@ jobs:
       - name: Checkout code from master branch
         uses: actions/checkout@v2
         
-      - name: Configure AWS Credentials
-        run: |
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation create-change-set --stack-name my-application --template-body file://s3_bucket.yaml --parameters "ParameterKey=MyBucketName,UsePreviousValue=true"
+      #- name: Configure AWS Credentials
+      #  run: |
+       #   aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #  aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         # aws configure set region ${{ vars.AWS_REGION }}    
+          #aws cloudformation create-change-set --stack-name my-application --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
           
       - name: Deploy  
         uses: aws-actions/aws-cloudformation-github-deploy@v1
