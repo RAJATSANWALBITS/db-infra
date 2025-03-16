@@ -33,7 +33,7 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation validate-template --template-body .github/workflows/blank.yml
+          aws cloudformation validate-template --template-body file://.github/workflows/blank.yml
            
 
   # This workflow contains a single job called "build"
