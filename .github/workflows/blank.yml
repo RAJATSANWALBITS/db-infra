@@ -50,8 +50,8 @@ jobs:
           
   Development-Create-changeset:
     needs: [ Eval-Deploy-Changeset ]
-    environment: development
-    if: always() && ( needs.Eval-Create-Changeset.result != 'skipped' &&  needs.Eval-Deploy-Changeset.result == 'success') && ( needs.Template-Validation.result == 'success')
+    #environment: development
+    if: always() && ( needs.Eval-Create-Changeset.result == 'skipped' ||  needs.Eval-Deploy-Changeset.result == 'success') && ( needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
           
   Development-Deploy-changeset:
     needs: [ Development-Create-changeset ]
-    environment: development
+    #environment: development
     if: always() && (needs.Development-Create-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +75,7 @@ jobs:
 
   Ftest-Create-Changeset:
     needs: [ Development-Deploy-changeset ]
-    environment: ftest
+    #environment: ftest
     if: always() && (needs.Development-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -87,7 +87,7 @@ jobs:
 
   Ftest-Deploy-changeset:
     needs: [ Ftest-Create-Changeset ]
-    environment: ftest
+    #environment: ftest
     if: always() && (needs.Ftest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -100,7 +100,7 @@ jobs:
 
   Stage-Create-Changeset:
     needs: [ Ftest-Deploy-changeset ]
-    environment: stage
+    #environment: stage
     if: always() && (needs.Ftest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -112,7 +112,7 @@ jobs:
 
   Stage-Deploy-changeset:
     needs: [ Stage-Create-Changeset ]
-    environment: stage
+    #environment: stage
     if: always() && (needs.Stage-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -125,7 +125,7 @@ jobs:
 
   Ptest-Create-Changeset:
     needs: [ Stage-Deploy-changeset ]
-    environment: ptest
+    #environment: ptest
     if: always() && (needs.Stage-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
@@ -137,7 +137,7 @@ jobs:
 
   Ptest-Deploy-changeset:
     needs: [ Ptest-Create-Changeset ]
-    environment: ptest
+    #environment: ptest
     if: always() && (needs.Ptest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
