@@ -19,7 +19,7 @@ Resources:
     Properties:
       BucketName: !Ref MyBucketName
       
-      #BucketEncryption:                         #using KMS key for bucket encryption instead of uding default AWS key.
+      ##BucketEncryption:                         #using KMS key for bucket encryption instead of uding default AWS key.
         #ServerSideEncryptionConfiguration:
           #- ServerSideEncryptionByDefault:
               #SSEAlgorithm: 'aws:kms'
