@@ -24,7 +24,7 @@ Resources:
           #- ServerSideEncryptionByDefault:
               #SSEAlgorithm: 'aws:kms'
               #KMSMasterKeyID: arn:aws:kms:ap-south-1:975050076353:key/66a8e592-ae38-4392-8180-c110907acf20
-            #BucketKeyEnabled: True
+            #BucketKeyEnabled: True #
       VersioningConfiguration:
         Status: Enabled
         
