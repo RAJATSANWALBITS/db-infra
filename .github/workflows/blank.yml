@@ -156,13 +156,13 @@ jobs:
       GLOBAL_CHANGE_SET_NAME: ${{ steps.generate_name.outputs.CHANGE_SET_NAME }}
     steps:
       - uses: actions/checkout@v4
-        id: generate_name
       - name: Variable Print
+        id: generate_name
         run: | 
           CHANGE_SET_NAME="change-set-$(uuidgen | cut -c1-8)"
           echo "CHANGE_SET_NAME=$CHANGE_SET_NAME" >> $GITHUB_ENV
-           
-
+          echo "CHANGE_SET_NAME=$CHANGE_SET_NAME" >> $GITHUB_OUTPUT
+          
       - name: Configure AWS Credentials
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -186,7 +186,7 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          aws cloudformation execute-change-set --change-set-name ${{env.GLOBAL_CHANGE_SET_NAME}} --stack-name s3Bucket
+          aws cloudformation execute-change-set --change-set-name ${{ needs.generate-name.outputs.GLOBAL_CHANGE_SET_NAME }}}} --stack-name s3Bucket
  
 
 
