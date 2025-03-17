@@ -166,9 +166,9 @@ jobs:
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set region ${{ vars.AWS_REGION }}    
-          #no-fail-on-empty-changeset: "1"
-          #aws cloudformation create-change-set --stack-name s3Bucket --change-set-name addingnewsbucket16march --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
-          #aws cloudformation describe-change-set --output table --color on --stack-name s3Bucket --change-set-name 
+          no-fail-on-empty-changeset: "1"
+          aws cloudformation create-change-set --stack-name s3Bucket --change-set-name ${{env.CHANGE_SET_NAME}} --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
+          aws cloudformation describe-change-set --output table --color on --stack-name s3Bucket --change-set-name ${{env.CHANGE_SET_NAME}}
           
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
@@ -177,8 +177,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - uses: actions/checkout@v4
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ vars.AWS_REGION }}    
+          aws cloudformation execute-change-set --change-set-name ${{env.CHANGE_SET_NAME}} --stack-name s3Bucket
  
 
 
