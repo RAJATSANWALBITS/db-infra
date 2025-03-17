@@ -51,7 +51,7 @@ jobs:
   Development-Create-changeset:
     needs: [ Eval-Deploy-Changeset ]
     environment: development
-    if: always() && ( needs.Eval-Create-Changeset.result == 'skipped' ||  needs.Eval-Deploy-Changeset.result == 'success') && ( needs.Template-Validation.result == 'success')
+    if: always() && ( needs.Eval-Create-Changeset.result != 'skipped' &&  needs.Eval-Deploy-Changeset.result == 'success') && ( needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -157,8 +157,8 @@ jobs:
       #- id: changeset_production
       - name: Variable Print
         run: | 
-          date="change-set-"+`$(date '+%Y-%m-%d %H:%M:%S')`
-          echo $date
+          CHANGE_SET_NAME="change-set-$(uuidgen | cut -c1-8)"
+          echo "CHANGE_SET_NAME=$CHANGE_SET_NAME" >> $GITHUB_ENV
            
 
       - name: Configure AWS Credentials
