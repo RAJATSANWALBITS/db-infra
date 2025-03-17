@@ -176,34 +176,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run
-        run: echo "Hello"
-        
+      - id: changeset_production
+      - name: Variable Print
+        run: | 
+          date="change-set-"+$(date '+%Y-%m-%d %H:%M:%S')
+          echo $date
+           
 
-
-
+      - name: Configure AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ vars.AWS_REGION }}    
+          #no-fail-on-empty-changeset: "1"
+          #aws cloudformation create-change-set --stack-name s3Bucket --change-set-name addingnewsbucket16march --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
+          #aws cloudformation describe-change-set --output table --color on --stack-name s3Bucket --change-set-name 
+          
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
     environment: production
     if: always() && (needs.Prod-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
-    steps:  
-      - name: Checkout code from master branch
-        uses: actions/checkout@v2
-        
-      #- name: Configure AWS Credentials
-      #  run: |
-       #   aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #  aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         # aws configure set region ${{ vars.AWS_REGION }}    
-          #aws cloudformation create-change-set --stack-name my-application --template-body file://s3_bucket.yaml --parameters ParameterKey=MyBucketName,UsePreviousValue=true
-          
-      - name: Deploy  
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: "s3Bucket"
-          template: "s3_bucket.yaml"
-          no-fail-on-empty-changeset: "1"
-          parameter-overrides: "MyBucketName=mys3bucketnewlti"
+ 
+
+
 
 
