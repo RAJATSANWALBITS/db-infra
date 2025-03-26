@@ -6,9 +6,9 @@ Parameters:
    NetworkStack:
      Type: String
      Default: "network-stack"
-   Environment:
-     Type: String
-     Default: "Production"
+#   Environment:
+ #    Type: String
+   #  Default: "Production"
   
 #Conditions:
  # IsProd: !Equals [ !Ref Environment, "Production" ]
