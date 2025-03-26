@@ -90,42 +90,7 @@ Resources:
         - Key: OwnerName
           Value: "Rajat Sanwal"
 
-  RDSMasterSecret: 
-    Type: AWS::SecretsManager::Secret                                           # Ratation is by default off.
-    Properties: 
-      Description: ASM secret for Admin user.
-      GenerateSecretString: 
-        ExcludeCharacters: '@~=/'
-        ExcludeLowercase: false
-        ExcludeNumbers: false
-        ExcludePunctuation: false
-        ExcludeUppercase: false
-        GenerateStringKey: "password"
-        IncludeSpace: false
-        PasswordLength: 20
-        RequireEachIncludedType: true
-        SecretStringTemplate: '{"username": "admin","BU": "Eras"}'
-      Name: "/rds/sales-prod/admin"
-      
-  MasterSecretAttachment: 
-    Type: AWS::SecretsManager::SecretTargetAttachment                   # this doesn't changes password
-    Properties: 
-      SecretId: !Ref RDSMasterSecret
-      TargetId: !Ref RDSInstance
-      TargetType: AWS::RDS::DBInstance
-      
-      
-  MasterrotationSchedule:
-    Type: AWS::SecretsManager::RotationSchedule
-    DependsOn: 
-      - MasterSecretAttachment
-    Properties:
-      RotateImmediatelyOnUpdate: false
-      RotationLambdaARN: arn:aws:lambda:ap-south-1:975050076353:function:SecretsManageradminRotate
-      RotationRules: 
-        AutomaticallyAfterDays: 10
-        Duration: 4h
-      SecretId: !Ref RDSMasterSecret
+
       
 
 
