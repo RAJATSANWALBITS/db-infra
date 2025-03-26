@@ -1,0 +1,141 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Creating RDS 
+
+
+Parameters:
+   NetworkStack:
+     Type: String
+     Default: "network-stack"
+   Environment:
+     Type: String
+     Default: "Production"
+  
+#Conditions:
+ # IsProd: !Equals [ !Ref Environment, "Production" ]
+Resources: 
+  RDSSubnetGroup: 
+    Type: AWS::RDS::DBSubnetGroup
+    Properties: 
+      DBSubnetGroupDescription: Oracle Subnet Group
+      DBSubnetGroupName: RDSSubnetGroup
+      SubnetIds: 
+        - !ImportValue network-stackPublicSubnet1Id                                     #importing export key directly from another stack
+        - { "Fn::ImportValue" : {"Fn::Sub": "${NetworkStack}PublicSubnet2Id" } }        # other way around
+      Tags: 
+        - Key: BU
+          Value: ERAS
+        - Key: Name
+          Value: RDSSubnetGroup
+          
+  RDSParameterGroup:
+    Type: 'AWS::RDS::DBParameterGroup'
+    Properties:
+      DBParameterGroupName : RDSParameterGroup
+      Description: RDS Parameter Group
+      Family: oracle-se2-19
+      Parameters:
+        cursor_sharing: force
+        open_cursors: 200
+        
+  RDSOptionGroup:   
+    Type: AWS::RDS::OptionGroup
+    Properties:
+      EngineName: oracle-se2
+      MajorEngineVersion: 19
+      OptionGroupDescription: Oracle RDS Option group
+      OptionGroupName: RDSOptionGroup
+      OptionConfigurations:
+        - OptionName: STATSPACK
+        - OptionName: UTL_MAIL
+        - OptionName: Timezone  
+          OptionSettings:
+            - Name: TIME_ZONE
+              Value: UTC 
+  
+  RDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      AllowMajorVersionUpgrade: false        
+      ApplyImmediately: true
+      AutoMinorVersionUpgrade: false
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      DBInstanceClass: db.m5.large
+      DBInstanceIdentifier: sales-prod
+      DBName: salespd
+      DBParameterGroupName: !Ref RDSParameterGroup
+      VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
+        - !ImportValue network-stackSalesSSHSecurityGroup
+      DBSubnetGroupName: !Ref RDSSubnetGroup
+      Engine: oracle-se2
+      EngineVersion: "19.0.0.0.ru-2023-10.rur-2023-10.r1"
+      LicenseModel: "bring-your-own-license"
+      ManageMasterUserPassword: false
+      MasterUsername: admin
+      MasterUserPassword: "pass123#"                                # this is password based admin user creation.
+      MultiAZ: false
+      OptionGroupName: !Ref RDSOptionGroup
+      Port: 1521
+      PubliclyAccessible: true
+      StorageType: gp2
+      BackupRetentionPeriod: 0
+      MaxAllocatedStorage: 20
+      Tags:
+        - Key: RDSbackup
+          Value: "true"
+        - Key: BU
+          Value: ERAS
+        - Key: OwnerEmail
+          Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
+        - Key: OwnerName
+          Value: "Rajat Sanwal"
+
+  RDSMasterSecret: 
+    Type: AWS::SecretsManager::Secret                                           # Ratation is by default off.
+    Properties: 
+      Description: ASM secret for Admin user.
+      GenerateSecretString: 
+        ExcludeCharacters: '@~=/'
+        ExcludeLowercase: false
+        ExcludeNumbers: false
+        ExcludePunctuation: false
+        ExcludeUppercase: false
+        GenerateStringKey: "password"
+        IncludeSpace: false
+        PasswordLength: 20
+        RequireEachIncludedType: true
+        SecretStringTemplate: '{"username": "admin","BU": "Eras"}'
+      Name: "/rds/sales-prod/admin"
+      
+  MasterSecretAttachment: 
+    Type: AWS::SecretsManager::SecretTargetAttachment                   # this doesn't changes password
+    Properties: 
+      SecretId: !Ref RDSMasterSecret
+      TargetId: !Ref RDSInstance
+      TargetType: AWS::RDS::DBInstance
+      
+      
+  MasterrotationSchedule:
+    Type: AWS::SecretsManager::RotationSchedule
+    DependsOn: 
+      - MasterSecretAttachment
+    Properties:
+      RotateImmediatelyOnUpdate: false
+      RotationLambdaARN: arn:aws:lambda:ap-south-1:975050076353:function:SecretsManageradminRotate
+      #RotationRules: 
+      #  AutomaticallyAfterDays: 10
+       # Duration: 4h
+      SecretId: !Ref RDSMasterSecret
+      
+
+
+
+     
+
+
+
+
+############## What was the critical learning outcome?
+# Say you created a db with hard coded password "pass123#. Later you updated the template and included ASM in it. Now when you modify the stack with new template
+# it will create a new password in ASM. But it will automatically sync with DB. DB will continue to have old password. You have to manually sync the password 
+# with alter user command. Once it is synced, future rotations will automatically sync otherwise rotations will fail.
