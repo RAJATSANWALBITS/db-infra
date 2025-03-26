@@ -172,7 +172,7 @@ jobs:
           echo "Waiting for change set to be created successfully."
           aws cloudformation wait change-set-create-complete --stack-name rds-stack --change-set-name ${{ env.CHANGE_SET_NAME }}
           echo "change set created !!"
-          aws cloudformation describe-change-set --output table --color on --stack-name rds-stack --change-set-name ${{env.CHANGE_SET_NAME}}
+          aws cloudformation describe-change-set --include-property-values --output table --color on --stack-name rds-stack --change-set-name ${{env.CHANGE_SET_NAME}}
           
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
