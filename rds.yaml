@@ -122,9 +122,9 @@ Resources:
     Properties:
       RotateImmediatelyOnUpdate: false
       RotationLambdaARN: arn:aws:lambda:ap-south-1:975050076353:function:SecretsManageradminRotate
-      #RotationRules: 
-      #  AutomaticallyAfterDays: 10
-       # Duration: 4h
+      RotationRules: 
+        AutomaticallyAfterDays: 10
+        Duration: 4h
       SecretId: !Ref RDSMasterSecret
       
 
