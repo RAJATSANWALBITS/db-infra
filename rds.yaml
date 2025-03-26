@@ -77,7 +77,7 @@ Resources:
       OptionGroupName: !Ref RDSOptionGroup
       Port: 1521
       PubliclyAccessible: true
-      StorageType: gp2
+      StorageType: gp3
       BackupRetentionPeriod: 0
       MaxAllocatedStorage: 20
       Tags:
