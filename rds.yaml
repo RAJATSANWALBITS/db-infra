@@ -55,7 +55,7 @@ Resources:
   RDSInstance:
     Type: AWS::RDS::DBInstance
     Properties:
-      AllocatedStorage: 19
+      AllocatedStorage: 20
       AllowMajorVersionUpgrade: false        
       ApplyImmediately: true
       AutoMinorVersionUpgrade: false
