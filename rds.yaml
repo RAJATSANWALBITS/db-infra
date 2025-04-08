@@ -117,7 +117,7 @@ Resources:
       TargetId: !Ref RDSInstance
       TargetType: AWS::RDS::DBInstance
       
-      
+#Setting to true   
   MasterrotationSchedule:
     Type: AWS::SecretsManager::RotationSchedule
     DependsOn: 
