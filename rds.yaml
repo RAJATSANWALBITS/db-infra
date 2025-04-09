@@ -108,7 +108,7 @@ Resources:
         PasswordLength: 20
         RequireEachIncludedType: true
         SecretStringTemplate: '{"username": "admin","BU": "Eras"}'
-      Name: "/rds/sales-pd/admin"
+      Name: "/rds/sales-prod/admin"
       
   MasterSecretAttachment: 
     Type: AWS::SecretsManager::SecretTargetAttachment                   # this doesn't changes password
