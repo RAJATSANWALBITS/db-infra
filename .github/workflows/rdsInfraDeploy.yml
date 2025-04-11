@@ -18,7 +18,7 @@ jobs:
   Template-Validation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Template_Validation
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -33,7 +33,7 @@ jobs:
     if: (github.events.inputs.choice == 'yes')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
 
@@ -42,7 +42,7 @@ jobs:
     if: always() && (github.event.inputs.choice == 'yes' && needs.Eval-Create-Changeset.result == 'success') && (needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: | 
           echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
@@ -54,7 +54,7 @@ jobs:
     if: always() && ( needs.Eval-Create-Changeset.result == 'skipped' ||  needs.Eval-Deploy-Changeset.result == 'success') && ( needs.Template-Validation.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: | 
            echo "Environment secrets Aws Access Key value is ${{ secrets.AWS_ACCESS_KEY_ID }}" 
@@ -68,7 +68,7 @@ jobs:
     if: always() && (needs.Development-Create-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
  
@@ -79,7 +79,7 @@ jobs:
     if: always() && (needs.Development-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
 
@@ -91,7 +91,7 @@ jobs:
     if: always() && (needs.Ftest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
  
@@ -104,7 +104,7 @@ jobs:
     if: always() && (needs.Ftest-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
 
@@ -129,7 +129,7 @@ jobs:
     if: always() && (needs.Stage-Deploy-changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
 
@@ -141,7 +141,7 @@ jobs:
     if: always() && (needs.Ptest-Create-Changeset.result == 'success')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
 
@@ -163,7 +163,7 @@ jobs:
           echo "CHANGE_SET_NAME=$CHANGE_SET_NAME" >> $GITHUB_ENV
           echo "CHANGE_SET_NAME=$CHANGE_SET_NAME" >> $GITHUB_OUTPUT
           
-      - name: Configure AWS Credentials
+      - name: Create Change Set
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -181,7 +181,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - uses: actions/checkout@v4
-      - name: Configure AWS Credentials
+      - name: Deploy Change Set
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
