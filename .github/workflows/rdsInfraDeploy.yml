@@ -18,7 +18,7 @@ jobs:
   Template-Validation:
     runs-on: ubuntu-latest
     steps:
-      #- uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Template_Validation
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
