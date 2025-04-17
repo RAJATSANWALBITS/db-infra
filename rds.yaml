@@ -104,7 +104,7 @@ Resources:
         IncludeSpace: false
         PasswordLength: 20
         RequireEachIncludedType: true
-        SecretStringTemplate: '{"username": "admin","BU": "Eras"}'
+        SecretStringTemplate: '{"username": "admin","BU": "ErasPD"}'
       Name: "/rds/sales-pd/admin"
       
   MasterSecretAttachment: 
