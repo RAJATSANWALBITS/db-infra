@@ -126,7 +126,7 @@ Resources:
         AutomaticallyAfterDays: 10
         #Duration: 3h
       SecretId: !Ref RDSMasterSecret
-
+##
 
       
 
