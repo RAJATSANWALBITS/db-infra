@@ -181,6 +181,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - uses: actions/checkout@v4
+      - name: Install OracleDB Module
+        run: |
+          mkdir -p python
+          pip install oracledb -t python
+
       - name: Deploy Change Set
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
