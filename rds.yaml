@@ -125,7 +125,7 @@ Resources:
       RotationRules: 
         AutomaticallyAfterDays: 10
         #Duration: 3h
-      SecretId: !Ref RDSMasterSecret
+      #SecretId: !Ref RDSMasterSecret
 ##
 
       
