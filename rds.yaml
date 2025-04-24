@@ -126,7 +126,7 @@ Resources:
         AutomaticallyAfterDays: 5
         #Duration: 3h
       SecretId: !Ref RDSMasterSecret
-##@
+##@#
  NestedStack:
    Type: AWS::CloudFormation::Stack
    Properties:
