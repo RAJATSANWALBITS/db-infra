@@ -1,0 +1,26 @@
+Resources:
+  SplunkUserSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub "/db-credential/${DBInstanceIdentifier}/SPLUNK_USER"
+      GenerateSecretString:
+        ExcludeCharacters: '@~=/}][{'
+        RequireEachIncludedType: True
+        PasswordLength: 15
+        GenerateStringKey: "Password"
+        SecretStringTemplate: !Sub '{"username": "SPLUNK_USER","master_arn":"${MasterArn}"}'
+
+  SplunkUserTargetAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref SplunkUserSecret
+      TargetType: AWS::RDS::DBInstance
+      TargetId: !Ref TargetId
+
+  SplunkUserCreation:
+    DependsOn: 
+      - SplunkUserTargetAttachment
+    Type: Custom::CreateUser
+    Properties:
+      ServiceToken: !Sub '{{resolve:ssm:oracleUserCreation}}'
+      SecretArn: !Ref SplunkUserSecret
