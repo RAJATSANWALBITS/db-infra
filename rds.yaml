@@ -135,9 +135,9 @@ Resources:
       
 Outputs:
   StackRef:
-    Value: !Ref NestedStack
+    Value: !Ref Credential
   OutputFromNestedStack:
-    Value: !GetAtt NestedStack.Outputs.BucketName
+    Value: !GetAtt Credential.Outputs.BucketName
 
 
       
