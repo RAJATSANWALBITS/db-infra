@@ -128,12 +128,7 @@ Resources:
       SecretId: !Ref RDSMasterSecret
 ##@#
 
-      
-Outputs:
-  StackRef:
-    Value: !Ref Credential
-  OutputFromNestedStack:
-    Value: !GetAtt Credential.Outputs.BucketName
+
 
 
       
