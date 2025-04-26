@@ -127,11 +127,7 @@ Resources:
         #Duration: 3h
       SecretId: !Ref RDSMasterSecret
 ##@#
-  Credential:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://mys3bucketnewlti.s3.ap-south-1.amazonaws.com/child_nested_stack_code.yml
-      TimeoutInMinutes: 60
+
       
 Outputs:
   StackRef:
