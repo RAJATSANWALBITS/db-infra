@@ -6,12 +6,6 @@ Parameters:
    NetworkStack:
      Type: String
      Default: "network-stack"
-   TargetId:
-     Type: String
-   MasterArn:
-     Type: String
-   DbInstanceIdentifier:
-     Type: String
 #   Environment:
  #    Type: String
    #  Default: "Production"
@@ -143,7 +137,7 @@ Resources:
       Parameters:
          TargetId: !Ref RDSInstance
          DbInstanceIdentifier: 'sales-prod'
-         MasterArN: !Ref RDSMasterSecret
+         MasterArn: !Ref RDSMasterSecret
 #Outputs:
  # StackRef:
   #  Value: !Ref Credential
