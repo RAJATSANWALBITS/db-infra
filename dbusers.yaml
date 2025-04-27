@@ -6,7 +6,7 @@ Parameters:
   MasterArn:
     Type: String
   DbInstanceIdentifier:
-    Typr: String
+    Type: String
 Resources:
   SplunkUserSecret:
     Type: AWS::SecretsManager::Secret
