@@ -6,12 +6,12 @@ Parameters:
    NetworkStack:
      Type: String
      Default: "network-stack"
-  TargetId:
-    Type: String
-  MasterArn:
-    Type: String
-  DbInstanceIdentifier:
-    Typr: String
+   TargetId:
+     Type: String
+   MasterArn:
+     Type: String
+   DbInstanceIdentifier:
+     Type: String
 #   Environment:
  #    Type: String
    #  Default: "Production"
