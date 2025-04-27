@@ -89,6 +89,8 @@ Resources:
           Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
         - Key: OwnerName
           Value: "Rajat Sanwal"
+        - Key: "Owner's Organization"
+          Value: "LTI Mindtree"
 
   RDSMasterSecret: 
     Type: AWS::SecretsManager::Secret                                           # Ratation is by default off.
