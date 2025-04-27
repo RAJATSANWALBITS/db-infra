@@ -6,12 +6,12 @@ Parameters:
    NetworkStack:
      Type: String
      Default: "network-stack"
-#   Environment:
- #    Type: String
-   #  Default: "Production"
+   Environment:
+     Type: String
+     Default: "Production"
   
-#Conditions:
- # IsProd: !Equals [ !Ref Environment, "Production" ]
+Conditions:
+  IsProd: !Equals [ !Ref Environment, "Test" ]
 Resources: 
   RDSSubnetGroup: 
     Type: AWS::RDS::DBSubnetGroup
@@ -107,7 +107,7 @@ Resources:
         PasswordLength: 20
         RequireEachIncludedType: true
         SecretStringTemplate: '{"username": "admin","BU": "Business-Test"}'
-      Name: "/rds/sales-pd/admin"
+      Name: "/db-credential/sales-prod/admin"
       
   MasterSecretAttachment: 
     Type: AWS::SecretsManager::SecretTargetAttachment                   # this doesn't changes password
@@ -131,6 +131,7 @@ Resources:
 ##@#
   Credential:
     Type: AWS::CloudFormation::Stack
+    Condition: IsProd
     Properties:
       TemplateURL: !Sub 'https://mys3bucketnewlti.s3.ap-south-1.amazonaws.com/sales-oracle-db-infra/dbusers.yaml'
       TimeoutInMinutes: 60      
