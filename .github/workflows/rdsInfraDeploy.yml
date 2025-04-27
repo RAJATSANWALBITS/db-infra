@@ -156,7 +156,7 @@ jobs:
       GLOBAL_CHANGE_SET_NAME: ${{ steps.generate_name.outputs.CHANGE_SET_NAME }}
     steps:
       - uses: actions/checkout@v4
-      - name: Variable Print
+      - name: Generate Changeset ID
         id: generate_name
         run: | 
           CHANGE_SET_NAME="change-set-$(uuidgen | cut -c1-8)"
@@ -172,7 +172,7 @@ jobs:
           echo "Waiting for change set to be created successfully."
           aws cloudformation wait change-set-create-complete --stack-name rds-stack --change-set-name ${{ env.CHANGE_SET_NAME }}
           echo "change set created !!"
-          aws cloudformation describe-change-set --include-property-values --output table --color on --stack-name rds-stack --change-set-name ${{env.CHANGE_SET_NAME}}
+          aws cloudformation describe-change-set --output table --color on --stack-name rds-stack --change-set-name ${{env.CHANGE_SET_NAME}}
           
   Prod-Deploy-changeset:
     needs: [ Prod-Create-Changeset ]
@@ -181,11 +181,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:    
       - uses: actions/checkout@v4
-      - name: Install OracleDB Module
+      #- name: Install OracleDB Module
+       # run: |
+        #  mkdir -p python
+         # pip install oracledb -t python
+      - name: Sync Central s3 bucket
         run: |
-          mkdir -p python
-          pip install oracledb -t python
-
+            aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws configure set region ${{ vars.AWS_REGION }}        
+            aws s3 sync . s3://mys3bucketnewlti//saled-oracle-db-infra --exclude '.git/*' --exclude '.gitignore/*' --exclude '.github/*'
       - name: Deploy Change Set
         run: |
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
