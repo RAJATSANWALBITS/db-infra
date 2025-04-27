@@ -11,7 +11,7 @@ Resources:
   SplunkUserSecret:
     Type: AWS::SecretsManager::Secret
     Properties:
-      Name: !Sub "/db-credential/${DBInstanceIdentifier}/SPLUNK_USER"
+      Name: !Sub "/db-credential/${DbInstanceIdentifier}/SPLUNK_USER"
       GenerateSecretString:
         ExcludeCharacters: '@~=/}][{'
         RequireEachIncludedType: True
