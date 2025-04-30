@@ -16,7 +16,7 @@ Resources:
         ExcludeCharacters: '@~=/}][{'
         RequireEachIncludedType: True
         PasswordLength: 15
-        GenerateStringKey: "Password"
+        GenerateStringKey: "password"
         SecretStringTemplate: !Sub '{"username": "SPLUNK_USER","master_arn":"${MasterArn}"}'
 
   SplunkUserTargetAttachment:
