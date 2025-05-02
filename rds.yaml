@@ -122,7 +122,7 @@ Resources:
     DependsOn: 
       - MasterSecretAttachment
     Properties:
-      RotateImmediatelyOnUpdate: true
+      RotateImmediatelyOnUpdate: false
       RotationLambdaARN: arn:aws:lambda:ap-south-1:975050076353:function:SecretsManageradminRotate
       RotationRules: 
         AutomaticallyAfterDays: 40
