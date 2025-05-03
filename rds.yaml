@@ -139,7 +139,7 @@ Resources:
          TargetId: !Ref RDSInstance
          DbInstanceIdentifier: 'sales-prod'
          MasterArn: !Ref RDSMasterSecret
-#Outputs:
+##Outputs:
  # StackRef:
   #  Value: !Ref Credential
   #OutputFromNestedStack:
