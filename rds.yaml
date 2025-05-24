@@ -44,7 +44,7 @@ Resources:
       Description: Postgres RDS Parameter Group
       Family: postgres16
       Parameters:
-        port: 5432
+        archive_mode: "off"
            
   RDSOptionGroup:   
     Type: AWS::RDS::OptionGroup
