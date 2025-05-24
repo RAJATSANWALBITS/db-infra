@@ -77,7 +77,7 @@ Resources:
         - !ImportValue network-stackSalesSSHSecurityGroup
       DBSubnetGroupName: !Ref RDSSubnetGroup
       Engine: "postgres"
-      EngineVersion: "PostgreSQL 16.5-R1"
+      EngineVersion: "16.8"
       ManageMasterUserPassword: false
       MasterUsername: postgres
       MasterUserPassword: "pass123#"                                # this is password based admin user creation.
