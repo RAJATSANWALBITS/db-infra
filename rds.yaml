@@ -76,7 +76,7 @@ Resources:
       VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
         - !ImportValue network-stackSalesSSHSecurityGroup
       DBSubnetGroupName: !Ref RDSSubnetGroup
-      Engine: "postgres16"
+      Engine: "PostgreSQL"
       EngineVersion: "PostgreSQL 16.5-R1"
       ManageMasterUserPassword: false
       MasterUsername: postgres
