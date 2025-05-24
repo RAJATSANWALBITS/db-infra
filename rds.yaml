@@ -52,6 +52,112 @@ Resources:
             - Name: TIME_ZONE
               Value: UTC 
   
+  #RDSInstance:
+  #  Type: AWS::RDS::DBInstance
+  #  Properties:
+  #    AllocatedStorage: 20
+  #    AllowMajorVersionUpgrade: false        
+  #    ApplyImmediately: true
+  #    AutoMinorVersionUpgrade: false
+  #    AvailabilityZone: !Select [ 0, !GetAZs '' ]
+  #    DBInstanceClass: db.m5.large
+  #    DBInstanceIdentifier: sales-prod
+  #    DBName: salespd
+  #    DBParameterGroupName: !Ref RDSParameterGroup
+  #    VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
+  #      - !ImportValue network-stackSalesSSHSecurityGroup
+  #    DBSubnetGroupName: !Ref RDSSubnetGroup
+  #    Engine: oracle-se2
+  #    EngineVersion: "19.0.0.0.ru-2023-10.rur-2023-10.r1"
+  #    LicenseModel: "bring-your-own-license"
+  #    ManageMasterUserPassword: false
+  #    MasterUsername: admin
+  #    MasterUserPassword: "pass123#"                                # this is password based admin user creation.
+  #    MultiAZ: false
+  #    OptionGroupName: !Ref RDSOptionGroup
+  #    Port: 1521
+  #    PubliclyAccessible: true
+  #    StorageType: gp3
+  #    BackupRetentionPeriod: 0
+  #    MaxAllocatedStorage: 20
+  #    Tags:
+  #      - Key: RDSbackup
+  #        Value: "true"
+  #      - Key: BU
+  #        Value: ERAS
+  #      - Key: OwnerEmail
+  #        Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
+  #      - Key: OwnerName
+  #        Value: "Rajat Sanwal"
+  #      - Key: "Owner Organization"
+  #        Value: "LTI Mindtree"
+  #
+  #RDSMasterSecret: 
+  #  Type: AWS::SecretsManager::Secret                                           # Ratation is by default off.
+  #  Properties: 
+  #    Description: ASM secret for Admin user.
+  #    GenerateSecretString: 
+  #      ExcludeCharacters: '@~=/'
+  #      ExcludeLowercase: false
+  #      ExcludeNumbers: false
+  #      ExcludePunctuation: false
+  #      ExcludeUppercase: false
+  #      GenerateStringKey: "password"
+  #      IncludeSpace: false
+  #      PasswordLength: 20
+  #      RequireEachIncludedType: true
+  #      SecretStringTemplate: '{"username": "admin","BU": "Business-Test"}'
+  #    Name: "/db-credential/sales-prod/admin"
+  #    
+  #MasterSecretAttachment: 
+  #  Type: AWS::SecretsManager::SecretTargetAttachment                   # this doesn't changes password
+  #  Properties: 
+  #    SecretId: !Ref RDSMasterSecret
+  #    TargetId: !Ref RDSInstance
+  #    TargetType: AWS::RDS::DBInstance
+  #    
+#S#etting to true   
+  #MasterrotationSchedule:
+  #  Type: AWS::SecretsManager::RotationSchedule
+  #  DependsOn: 
+  #    - MasterSecretAttachment
+  #  Properties:
+  #    RotateImmediatelyOnUpdate: false
+  #    RotationLambdaARN: arn:aws:lambda:ap-south-1:975050076353:function:SecretsManageradminRotate
+  #    RotationRules: 
+  #      AutomaticallyAfterDays: 40
+  #      #Duration: 3h
+  #    SecretId: !Ref RDSMasterSecret
+###@#
+  #Credential:
+  #  Type: AWS::CloudFormation::Stack
+  #  #Condition: IsProd
+  #  Properties:
+  #    TemplateURL: !Sub 'https://mys3bucketnewlti.s3.ap-south-1.amazonaws.com/sales-oracle-db-infra/dbusers.yaml'
+  #    TimeoutInMinutes: 60      
+  #    Parameters:
+  #       TargetId: !Ref RDSInstance
+  #       DbInstanceIdentifier: 'sales-prod'
+  #       MasterArn: !Ref RDSMasterSecret
+##Outputs:
+ # StackRef:
+  #  Value: !Ref Credential
+  #OutputFromNestedStack:
+   # Value: !GetAtt Credential.Outputs.BucketName
+
+
+
+
+
+
+
+##Outputs:
+ # StackRef:
+  #  Value: !Ref Credential
+  #OutputFromNestedStack:
+   # Value: !GetAtt Credential.Outputs.BucketName
+
+
 
       
 
