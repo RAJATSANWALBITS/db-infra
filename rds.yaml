@@ -36,7 +36,16 @@ Resources:
       Parameters:
         cursor_sharing: force
         open_cursors: 200
-        
+
+  PostgresRDSParameterGroup:
+    Type: 'AWS::RDS::DBParameterGroup'
+    Properties:
+      DBParameterGroupName : PostgresRDSParameterGroup
+      Description: Postgres RDS Parameter Group
+      Family: postgres16
+      Parameters:
+        port: 5432
+           
   RDSOptionGroup:   
     Type: AWS::RDS::OptionGroup
     Properties:
