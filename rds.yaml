@@ -44,7 +44,7 @@ Resources:
       Description: Postgres RDS Parameter Group
       Family: postgres16
       Parameters:
-        archive_mode: "off"
+        autovacuum: "on"
            
   RDSOptionGroup:   
     Type: AWS::RDS::OptionGroup
