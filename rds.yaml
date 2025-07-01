@@ -127,7 +127,7 @@ Resources:
       PubliclyAccessible: true
       StorageType: gp3
       BackupRetentionPeriod: 0
-      #MaxAllocatedStorage: 20
+      MaxAllocatedStorage: 20
       Tags:
         - Key: RDSbackup
           Value: "true"
