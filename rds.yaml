@@ -116,7 +116,7 @@ Resources:
         - !ImportValue network-stackSalesSSHSecurityGroup
       DBSubnetGroupName: !Ref RDSSubnetGroup
       Engine: oracle-se2
-      EngineVersion: "19.0.0.0.ru-2023-10.rur-2023-10.r1"
+      EngineVersion: "19.0.0.0.ru-2024-07.rur-2024-07.r1"
       LicenseModel: "bring-your-own-license"
       ManageMasterUserPassword: false
       MasterUsername: admin
