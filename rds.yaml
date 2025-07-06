@@ -61,43 +61,43 @@ Resources:
             - Name: TIME_ZONE
               Value: UTC 
 
-  PostgresRDSInstance:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      AllocatedStorage: 5
-      AllowMajorVersionUpgrade: false        
-      ApplyImmediately: true
-      AutoMinorVersionUpgrade: false
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      DBInstanceClass: db.m5.large
-      DBInstanceIdentifier: pg-sales
-      DBName: pgsales
-      DBParameterGroupName: !Ref PostgresRDSParameterGroup
-      VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
-        - !ImportValue network-stackSalesSSHSecurityGroup
-      DBSubnetGroupName: !Ref RDSSubnetGroup
-      Engine: "postgres"
-      EngineVersion: "16.8"
-      ManageMasterUserPassword: false
-      MasterUsername: postgres
-      MasterUserPassword: "pass123#"                                # this is password based admin user creation.
-      MultiAZ: false
-      Port: 5432
-      PubliclyAccessible: true
-      StorageType: standard
-      BackupRetentionPeriod: 0
+  #PostgresRDSInstance:
+    #Type: AWS::RDS::DBInstance
+    #Properties:
+      #AllocatedStorage: 5
+      #AllowMajorVersionUpgrade: false        
+      #ApplyImmediately: true
+      #AutoMinorVersionUpgrade: false
+      #AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      #DBInstanceClass: db.m5.large
+      #DBInstanceIdentifier: pg-sales
+      #DBName: pgsales
+      #DBParameterGroupName: !Ref PostgresRDSParameterGroup
+      #VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
+        #- !ImportValue network-stackSalesSSHSecurityGroup
+      #DBSubnetGroupName: !Ref RDSSubnetGroup
+      #Engine: "postgres"
+      #EngineVersion: "16.8"
+      #ManageMasterUserPassword: false
+      #MasterUsername: postgres
+      #MasterUserPassword: "pass123#"                                # this is password based admin user creation.
+      #MultiAZ: false
+      #Port: 5432
+      #PubliclyAccessible: true
+      #StorageType: standard
+      #BackupRetentionPeriod: 0
       #MaxAllocatedStorage: 5
-      Tags:
-        - Key: RDSbackup
-          Value: "true"
-        - Key: BU
-          Value: ERAS
-        - Key: OwnerEmail
-          Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
-        - Key: OwnerName
-          Value: "Rajat Sanwal"
-        - Key: "Owner Organization"
-          Value: "LTI Mindtree"
+      #Tags:
+        #- Key: RDSbackup
+          #Value: "true"
+        #- Key: BU
+          #Value: ERAS
+        #- Key: OwnerEmail
+          #Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
+        #- Key: OwnerName
+          #Value: "Rajat Sanwal"
+        #- Key: "Owner Organization"
+          #Value: "LTI Mindtree"
   
 
   RDSInstance:
