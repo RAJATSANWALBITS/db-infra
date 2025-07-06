@@ -70,7 +70,7 @@ Resources:
       EngineVersion : 15.5
       Port: 5432
       DBSubnetGroupName: !Ref RDSSubnetGroup
-      BackupRetentionPeriod: 0
+      BackupRetentionPeriod: 1
       MasterUsername: postgres
       MasterUserPassword: "pass123#"
       DatabaseName: salespg
