@@ -136,7 +136,7 @@ Resources:
       ApplyImmediately: true
       AutoMinorVersionUpgrade: false
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      DBInstanceClass: db.m5.large
+      DBInstanceClass: db.t3.medium
       DBInstanceIdentifier: sales-prod
       DBName: salespd
       DBParameterGroupName: !Ref RDSParameterGroup
