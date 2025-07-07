@@ -88,16 +88,16 @@ Resources:
       Engine: aurora-postgresql
       EngineVersion : 15.5
       PubliclyAccessible: true
-  DBSecondaryNode:
-    Type: AWS::RDS::DBInstance
-    DependsOn: DBCluster
-    Properties:
-      DBInstanceIdentifier: sales-cluster-node02
-      DBClusterIdentifier: !Ref DBCluster
-      DBInstanceClass: db.t3.medium
-      Engine: aurora-postgresql
-      EngineVersion : 15.5
-      PubliclyAccessible: true
+  #DBSecondaryNode:
+    #Type: AWS::RDS::DBInstance
+    #DependsOn: DBCluster
+    #Properties:
+      #DBInstanceIdentifier: sales-cluster-node02
+      #DBClusterIdentifier: !Ref DBCluster
+      #DBInstanceClass: db.t3.medium
+      #Engine: aurora-postgresql
+      #EngineVersion : 15.5
+      #PubliclyAccessible: true
 
   #PostgresRDSInstance:
     #Type: AWS::RDS::DBInstance
