@@ -149,45 +149,45 @@ Resources:
           #Value: "LTI Mindtree"
   
 
-  RDSInstance:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      AllocatedStorage: 20
-      AllowMajorVersionUpgrade: false        
-      ApplyImmediately: true
-      AutoMinorVersionUpgrade: false
-      AvailabilityZone: !Select [ 0, !GetAZs '' ]
-      DBInstanceClass: db.t3.medium
-      DBInstanceIdentifier: sales-prod
-      DBName: salespd
-      DBParameterGroupName: !Ref RDSParameterGroup
-      VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
-        - !ImportValue network-stackSalesSSHSecurityGroup
-      DBSubnetGroupName: !Ref RDSSubnetGroup
-      Engine: oracle-se2
-      EngineVersion: "19.0.0.0.ru-2024-07.rur-2024-07.r1"
-      LicenseModel: "bring-your-own-license"
-      ManageMasterUserPassword: false
-      MasterUsername: admin
-      MasterUserPassword: "pass123#"                                # this is password based admin user creation.
-      MultiAZ: false
-      OptionGroupName: !Ref RDSOptionGroup
-      Port: 1521
-      PubliclyAccessible: true
-      StorageType: gp3
-      BackupRetentionPeriod: 0
-      MaxAllocatedStorage: 30
-      Tags:
-        - Key: RDSbackup
-          Value: "true"
-        - Key: BU
-          Value: ERAS
-        - Key: OwnerEmail
-          Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
-        - Key: OwnerName
-          Value: "Rajat Sanwal"
-        - Key: "Owner Organization"
-          Value: "LTI Mindtree"
+  #RDSInstance:
+  #  Type: AWS::RDS::DBInstance
+  #  Properties:
+  #    AllocatedStorage: 20
+  #    AllowMajorVersionUpgrade: false        
+  #    ApplyImmediately: true
+  #    AutoMinorVersionUpgrade: false
+  #    AvailabilityZone: !Select [ 0, !GetAZs '' ]
+  #    DBInstanceClass: db.t3.medium
+  #    DBInstanceIdentifier: sales-prod
+  #    DBName: salespd
+  #    DBParameterGroupName: !Ref RDSParameterGroup
+  #    VPCSecurityGroups:                                            # we are using VPC based DB so we used it. If you use DBSecurityGroups property then you will run into API error.
+  #      - !ImportValue network-stackSalesSSHSecurityGroup
+  #    DBSubnetGroupName: !Ref RDSSubnetGroup
+  #    Engine: oracle-se2
+  #    EngineVersion: "19.0.0.0.ru-2024-07.rur-2024-07.r1"
+  #    LicenseModel: "bring-your-own-license"
+  #    ManageMasterUserPassword: false
+  #    MasterUsername: admin
+  #    MasterUserPassword: "pass123#"                                # this is password based admin user creation.
+  #    MultiAZ: false
+  #    OptionGroupName: !Ref RDSOptionGroup
+  #    Port: 1521
+  #    PubliclyAccessible: true
+  #    StorageType: gp3
+  #    BackupRetentionPeriod: 0
+  #    MaxAllocatedStorage: 30
+  #    Tags:
+  #      - Key: RDSbackup
+  #        Value: "true"
+  #      - Key: BU
+  #        Value: ERAS
+  #      - Key: OwnerEmail
+  #        Value: "rajatsanwal@ltimindtree.com"                            # can't contain @, otherwise stack will go in update rollback failed.
+  #      - Key: OwnerName
+  #        Value: "Rajat Sanwal"
+  #      - Key: "Owner Organization"
+  #        Value: "LTI Mindtree"
   
   #RDSMasterSecret: 
   #  Type: AWS::SecretsManager::Secret                                           # Ratation is by default off.
