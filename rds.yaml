@@ -61,54 +61,54 @@ Resources:
             - Name: TIME_ZONE
               Value: UTC 
 
-  DBCluster:
-    Type: AWS::RDS::DBCluster
+  #DBCluster:
+    #Type: AWS::RDS::DBCluster
     #DependsOn: [ClusterDBSubnetGroup]
-    Properties:
-      DBClusterIdentifier: "sales-cluster"
-      Engine: aurora-postgresql
-      EngineVersion : 15.5
-      Port: 5432
-      DBSubnetGroupName: !Ref RDSSubnetGroup
-      BackupRetentionPeriod: 1
-      MasterUsername: postgres
-      MasterUserPassword: "pass123#"
-      DatabaseName: salespg
-      StorageEncrypted: false
-      VpcSecurityGroupIds: 
-        - !ImportValue network-stackSalesSSHSecurityGroup
+    #Properties:
+      #DBClusterIdentifier: "sales-cluster"
+      #Engine: aurora-postgresql
+      #EngineVersion : 15.5
+      #Port: 5432
+      #DBSubnetGroupName: !Ref RDSSubnetGroup
+      #BackupRetentionPeriod: 1
+      #MasterUsername: postgres
+      #MasterUserPassword: "pass123#"
+      #DatabaseName: salespg
+      #StorageEncrypted: false
+      #VpcSecurityGroupIds: 
+        #- !ImportValue network-stackSalesSSHSecurityGroup
 
-  DBPrimaryNode:
-    Type: AWS::RDS::DBInstance
-    DependsOn: DBCluster
-    Properties:
-      DBInstanceIdentifier: sales-cluster-node01
-      DBClusterIdentifier: !Ref DBCluster
-      DBInstanceClass: db.t3.medium
-      Engine: aurora-postgresql
-      EngineVersion : 15.5
-      PubliclyAccessible: true
-  DBSecondaryNode:
-    Type: AWS::RDS::DBInstance
-    DependsOn: DBCluster
-    Properties:
-      DBInstanceIdentifier: sales-cluster-node02
-      DBClusterIdentifier: !Ref DBCluster
-      DBInstanceClass: db.t3.medium
-      Engine: aurora-postgresql
-      EngineVersion : 15.5
-      PubliclyAccessible: true
+  #DBPrimaryNode:
+    #Type: AWS::RDS::DBInstance
+    #DependsOn: DBCluster
+    #Properties:
+      #DBInstanceIdentifier: sales-cluster-node01
+      #DBClusterIdentifier: !Ref DBCluster
+      #DBInstanceClass: db.t3.medium
+      #Engine: aurora-postgresql
+      #EngineVersion : 15.5
+      #PubliclyAccessible: true
+  #DBSecondaryNode:
+    #Type: AWS::RDS::DBInstance
+    #DependsOn: DBCluster
+    #Properties:
+      #DBInstanceIdentifier: sales-cluster-node02
+      #DBClusterIdentifier: !Ref DBCluster
+      #DBInstanceClass: db.t3.medium
+      #Engine: aurora-postgresql
+      #EngineVersion : 15.5
+      #PubliclyAccessible: true
 
-  DBTertiaryNode:
-    Type: AWS::RDS::DBInstance
-    DependsOn: DBCluster
-    Properties:
-      DBInstanceIdentifier: sales-cluster-node03
-      DBClusterIdentifier: !Ref DBCluster
-      DBInstanceClass: db.t3.medium
-      Engine: aurora-postgresql
-      EngineVersion : 15.5
-      PubliclyAccessible: true
+  #DBTertiaryNode:
+    #Type: AWS::RDS::DBInstance
+    #DependsOn: DBCluster
+    #Properties:
+      #DBInstanceIdentifier: sales-cluster-node03
+      #DBClusterIdentifier: !Ref DBCluster
+      #DBInstanceClass: db.t3.medium
+      #Engine: aurora-postgresql
+      #EngineVersion : 15.5
+      #PubliclyAccessible: true
 
   #PostgresRDSInstance:
     #Type: AWS::RDS::DBInstance
