@@ -63,7 +63,7 @@ Resources:
 
   DBCluster:
     Type: AWS::RDS::DBCluster
-    DependsOn: [ClusterDBSubnetGroup]
+    #DependsOn: [ClusterDBSubnetGroup]
     Properties:
       DBClusterIdentifier: "sales-cluster"
       Engine: aurora-postgresql
