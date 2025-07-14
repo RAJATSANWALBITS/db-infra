@@ -93,6 +93,7 @@ Resources:
       MasterUserPassword: "pass123#"
       DatabaseName: salespg
       StorageEncrypted: false
+      DBClusterParameterGroupName: !Ref ClusterParameterGroup
       VpcSecurityGroupIds: 
         - !ImportValue network-stackSalesSSHSecurityGroup
 
@@ -105,6 +106,7 @@ Resources:
       DBInstanceClass: db.t3.medium
       Engine: aurora-postgresql
       EngineVersion : 15.5
+      DBParameterGroupName: PostgresclusterDBParameterGroup
       PubliclyAccessible: true
   #DBSecondaryNode:
     #Type: AWS::RDS::DBInstance
