@@ -34,7 +34,7 @@ Resources:
       Description: Postgres aurora cluster parameter group
       Family: aurora-postgresql14
       Parameters: 
-        wal_level: replica
+        character_set_database: utf32
 
   PostgresclusterDBParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
