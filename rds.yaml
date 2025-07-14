@@ -106,7 +106,7 @@ Resources:
       DBInstanceIdentifier: sales-cluster-node01
       DBClusterIdentifier: !Ref DBCluster
       DBInstanceClass: db.t3.medium
-      MultiAZ: True
+      #MultiAZ: True
       Engine: aurora-postgresql
       EngineVersion : 15.5
       DBParameterGroupName: !Ref PostgresclusterDBParameterGroup
@@ -117,7 +117,7 @@ Resources:
     Properties:
       DBInstanceIdentifier: sales-cluster-node02
       DBClusterIdentifier: !Ref DBCluster
-      MultiAZ: True
+      #MultiAZ: True
       DBInstanceClass: db.t3.medium
       #AvailabilityZone: us-east-1a
       Engine: aurora-postgresql
