@@ -32,18 +32,18 @@ Resources:
     Properties:
       DBClusterParameterGroupName: PgAuroraClusterPG
       Description: Postgres aurora cluster parameter group
-      Family: aurora-postgresql14
+      Family: aurora-postgresql15
       Parameters: 
-        character_set_database: utf32
+        shared_preload_libraries: rdsutils,pg_stat_statements,writeforward,pg_audit
 
   PostgresclusterDBParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
     Properties:
       DBParameterGroupName : PostgresClusterDBParameterGroup
       Description: Postgres Cluster DB Parameter Group
-      Family: postgres15
+      Family: aurora-postgresql15
       Parameters:
-        autovacuum: "on"
+        shared_preload_libraries: rdsutils,pg_stat_statements,writeforward,pg_audit
       
   RDSParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
