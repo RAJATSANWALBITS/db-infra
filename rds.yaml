@@ -35,8 +35,6 @@ Resources:
       Family: aurora-postgresql15
       Parameters: 
         shared_preload_libraries: pgaudit
-        log_statement: 'all'
-        logging_collector: 'on'
 
   PostgresclusterDBParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
