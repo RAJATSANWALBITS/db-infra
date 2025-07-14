@@ -34,7 +34,7 @@ Resources:
       Description: Postgres aurora cluster parameter group
       Family: aurora-postgresql15
       Parameters: 
-        shared_preload_libraries: rdsutils,pg_stat_statements,writeforward,pgaudit
+        shared_preload_libraries: pgaudit
 
   PostgresclusterDBParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
@@ -43,7 +43,7 @@ Resources:
       Description: Postgres Cluster DB Parameter Group
       Family: aurora-postgresql15
       Parameters:
-        shared_preload_libraries: rdsutils,pg_stat_statements,writeforward,pgaudit
+        shared_preload_libraries: pgaudit
       
   RDSParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
