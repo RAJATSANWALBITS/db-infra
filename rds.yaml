@@ -89,7 +89,6 @@ Resources:
       Engine: aurora-postgresql
       EngineVersion : 15.5
       Port: 5432
-      MultiAZ: True
       DBSubnetGroupName: !Ref RDSSubnetGroup
       BackupRetentionPeriod: 1
       MasterUsername: postgres
@@ -107,6 +106,7 @@ Resources:
       DBInstanceIdentifier: sales-cluster-node01
       DBClusterIdentifier: !Ref DBCluster
       DBInstanceClass: db.t3.medium
+      MultiAZ: True
       Engine: aurora-postgresql
       EngineVersion : 15.5
       DBParameterGroupName: !Ref PostgresclusterDBParameterGroup
@@ -117,6 +117,7 @@ Resources:
     Properties:
       DBInstanceIdentifier: sales-cluster-node02
       DBClusterIdentifier: !Ref DBCluster
+      MultiAZ: True
       DBInstanceClass: db.t3.medium
       #AvailabilityZone: us-east-1a
       Engine: aurora-postgresql
