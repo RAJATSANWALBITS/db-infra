@@ -26,7 +26,25 @@ Resources:
           Value: ERAS
         - Key: Name
           Value: RDSSubnetGroup
-          
+
+  ClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      DBClusterParameterGroupName: PgAuroraClusterPG
+      Description: Postgres aurora cluster parameter group
+      Family: aurora-postgresql14
+      Parameters: 
+        wal_level: replica
+
+  PostgresclusterDBParameterGroup:
+    Type: 'AWS::RDS::DBParameterGroup'
+    Properties:
+      DBParameterGroupName : PostgresClusterDBParameterGroup
+      Description: Postgres Cluster DB Parameter Group
+      Family: postgres15
+      Parameters:
+        autovacuum: "on"
+      
   RDSParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
     Properties:
