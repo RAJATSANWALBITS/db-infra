@@ -106,7 +106,7 @@ Resources:
       DBInstanceClass: db.t3.medium
       Engine: aurora-postgresql
       EngineVersion : 15.5
-      DBParameterGroupName: PostgresclusterDBParameterGroup
+      DBParameterGroupName: !Ref PostgresclusterDBParameterGroup
       PubliclyAccessible: true
   #DBSecondaryNode:
     #Type: AWS::RDS::DBInstance
