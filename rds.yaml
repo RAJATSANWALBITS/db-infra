@@ -89,6 +89,7 @@ Resources:
       Engine: aurora-postgresql
       EngineVersion : 15.5
       Port: 5432
+      MultiAZ: True
       DBSubnetGroupName: !Ref RDSSubnetGroup
       BackupRetentionPeriod: 1
       MasterUsername: postgres
