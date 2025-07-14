@@ -45,7 +45,7 @@ Resources:
       Parameters:
         shared_preload_libraries: pgaudit
         log_statement: 'all'
-        logging_collector: 'on'        
+        #logging_collector: 'on'        
       
   RDSParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
