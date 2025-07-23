@@ -18,7 +18,9 @@ Resources:
         PasswordLength: 15
         GenerateStringKey: "password"
         SecretStringTemplate: !Sub '{"username": "SPLUNK_USER","master_arn":"${MasterArn}"}'
-
+        Tags:
+        - Key: RDSbackup
+          Value: "true"
   #SplunkUserTargetAttachment:
    # Type: AWS::SecretsManager::SecretTargetAttachment
     #Properties:
