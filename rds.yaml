@@ -56,6 +56,8 @@ Resources:
       Parameters:
         cursor_sharing: force
         open_cursors: 200
+        enable_ddl_logging: TRUE
+        audit_trail: 'DB,EXTENDED'
 
   PostgresRDSParameterGroup:
     Type: 'AWS::RDS::DBParameterGroup'
