@@ -27,24 +27,24 @@ Resources:
         - Key: Name
           Value: RDSSubnetGroup
 
-  ClusterParameterGroup:
-    Type: AWS::RDS::DBClusterParameterGroup
-    Properties:
-      DBClusterParameterGroupName: PgAuroraClusterPG
-      Description: Postgres aurora cluster parameter group
-      Family: aurora-postgresql15
-      Parameters: 
-        shared_preload_libraries: pgaudit
+  #ClusterParameterGroup:
+   # Type: AWS::RDS::DBClusterParameterGroup
+    #Properties:
+     # DBClusterParameterGroupName: PgAuroraClusterPG
+      #Description: Postgres aurora cluster parameter group
+      #Family: aurora-postgresql15
+      #Parameters: 
+       # shared_preload_libraries: pgaudit
 
-  PostgresclusterDBParameterGroup:
-    Type: 'AWS::RDS::DBParameterGroup'
-    Properties:
-      DBParameterGroupName : PostgresClusterDBParameterGroup
-      Description: Postgres Cluster DB Parameter Group
-      Family: aurora-postgresql15
-      Parameters:
-        shared_preload_libraries: pgaudit
-        log_statement: 'all'
+  #PostgresclusterDBParameterGroup:
+  #  Type: 'AWS::RDS::DBParameterGroup'
+   # Properties:
+    #  DBParameterGroupName : PostgresClusterDBParameterGroup
+     # Description: Postgres Cluster DB Parameter Group
+     # Family: aurora-postgresql15
+     # Parameters:
+      #  shared_preload_libraries: pgaudit
+       # log_statement: 'all'
         #logging_collector: 'on'        
       
   RDSParameterGroup:
@@ -59,14 +59,14 @@ Resources:
         enable_ddl_logging: TRUE
         audit_trail: 'DB,EXTENDED'
 
-  PostgresRDSParameterGroup:
-    Type: 'AWS::RDS::DBParameterGroup'
-    Properties:
-      DBParameterGroupName : PostgresRDSParameterGroup
-      Description: Postgres RDS Parameter Group
-      Family: postgres16
-      Parameters:
-        autovacuum: "on"
+  #PostgresRDSParameterGroup:
+   # Type: 'AWS::RDS::DBParameterGroup'
+    #Properties:
+     # DBParameterGroupName : PostgresRDSParameterGroup
+      #Description: Postgres RDS Parameter Group
+      #Family: postgres16
+      #Parameters:
+       # autovacuum: "on"
            
   RDSOptionGroup:   
     Type: AWS::RDS::OptionGroup
