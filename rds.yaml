@@ -200,7 +200,7 @@ Resources:
       MultiAZ: false
       OptionGroupName: !Ref RDSOptionGroup
       Port: 1521
-      ApplyImmediately: false
+      #ApplyImmediately: false
       PubliclyAccessible: true
       StorageType: gp3
       BackupRetentionPeriod: 0
