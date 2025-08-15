@@ -207,7 +207,7 @@ Resources:
       #EnablePerformanceInsights: false
       DatabaseInsightsMode: standard
       #PerformanceInsightsRetentionPeriod: 465
-      MaxAllocatedStorage: 30
+      #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
           Value: "true"
