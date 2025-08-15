@@ -179,7 +179,7 @@ Resources:
   RDSInstance:
     Type: AWS::RDS::DBInstance
     Properties:
-      AllocatedStorage: 20
+      AllocatedStorage: 10
       AllowMajorVersionUpgrade: false        
       #ApplyImmediately: true
       AutoMinorVersionUpgrade: false
@@ -202,9 +202,10 @@ Resources:
       Port: 1521
       #ApplyImmediately: false
       PubliclyAccessible: true
-      StorageType: gp3
+      StorageType: standard
       BackupRetentionPeriod: 0
-      MaxAllocatedStorage: 30
+      EnablePerformanceInsights: true
+      #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
           Value: "true"
