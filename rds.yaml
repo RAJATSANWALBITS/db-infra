@@ -262,7 +262,7 @@ Resources:
     #Condition: IsProd
     DependsOn: !If
       - IsProd
-      - [ RDSOptionGroup, RDSInstance]
+      - [ RDSOptionGroup, RDSInstance ]
       - RDSInstance
     Properties:
       TemplateURL: !Sub 'https://mys3bucketnewlti.s3.ap-south-1.amazonaws.com/sales-oracle-db-infra/dbusers.yaml'
