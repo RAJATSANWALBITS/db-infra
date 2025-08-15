@@ -205,7 +205,7 @@ Resources:
       StorageType: standard
       BackupRetentionPeriod: 0
       #EnablePerformanceInsights: true
-      #DatabaseInsightsMode: standard
+      DatabaseInsightsMode: advanced
       #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
