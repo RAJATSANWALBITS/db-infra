@@ -204,7 +204,7 @@ Resources:
       PubliclyAccessible: true
       StorageType: standard
       BackupRetentionPeriod: 0
-      #EnablePerformanceInsights: false
+      EnablePerformanceInsights: true
       DatabaseInsightsMode: standard
       #PerformanceInsightsRetentionPeriod: 465
       #MaxAllocatedStorage: 30
