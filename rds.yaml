@@ -204,7 +204,8 @@ Resources:
       PubliclyAccessible: true
       StorageType: standard
       BackupRetentionPeriod: 0
-      EnablePerformanceInsights: true
+      #EnablePerformanceInsights: true
+      DatabaseInsightsMode: standard
       #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
