@@ -207,7 +207,7 @@ Resources:
       EnablePerformanceInsights: true
       DatabaseInsightsMode: standard
       PerformanceInsightsRetentionPeriod: 7
-      MonitoringInterval: 5
+      MonitoringInterval: 0
       MonitoringRoleArn: "arn:aws:iam::975050076353:role/rds-monitoring-role"
       #MaxAllocatedStorage: 30
       Tags:
