@@ -207,6 +207,8 @@ Resources:
       EnablePerformanceInsights: true
       DatabaseInsightsMode: standard
       PerformanceInsightsRetentionPeriod: 7
+      MonitoringInterval: 5
+      MonitoringRoleArn: rds-monitoring-role
       #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
