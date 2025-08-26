@@ -204,10 +204,10 @@ Resources:
       PubliclyAccessible: true
       StorageType: standard
       BackupRetentionPeriod: 0
-      EnablePerformanceInsights: true
-      DatabaseInsightsMode: standard
-      PerformanceInsightsRetentionPeriod: 7
-      MonitoringInterval: 1
+      #EnablePerformanceInsights: true
+      #DatabaseInsightsMode: standard
+      #PerformanceInsightsRetentionPeriod: 7
+      MonitoringInterval: 5
       MonitoringRoleArn: "arn:aws:iam::975050076353:role/rds-monitoring-role"
       #MaxAllocatedStorage: 30
       Tags:
