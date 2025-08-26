@@ -208,7 +208,7 @@ Resources:
       DatabaseInsightsMode: standard
       PerformanceInsightsRetentionPeriod: 7
       MonitoringInterval: 5
-      #MonitoringRoleArn: "arn:aws:iam:975050076353:role/rdsmonitoringrole"
+      MonitoringRoleArn: "arn:aws:iam::975050076353:role/rds-monitoring-role"
       #MaxAllocatedStorage: 30
       Tags:
         - Key: RDSbackup
