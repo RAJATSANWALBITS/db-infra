@@ -21,12 +21,12 @@ Resources:
       Tags:
         - Key: RDSbackup
           Value: "true"
-  #SplunkUserTargetAttachment:
-   # Type: AWS::SecretsManager::SecretTargetAttachment
-    #Properties:
-     # SecretId: !Ref SplunkUserSecret
-      #TargetType: AWS::RDS::DBInstance
-      #TargetId: !Ref TargetId
+  SplunkUserTargetAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref SplunkUserSecret
+      TargetType: AWS::RDS::DBInstance
+      TargetId: !Ref TargetId
 
   #SplunkUserCreation:
    # DependsOn: 
