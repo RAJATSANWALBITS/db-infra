@@ -209,7 +209,7 @@ Resources:
       #PerformanceInsightsRetentionPeriod: 7
       MonitoringInterval: 5
       MonitoringRoleArn: "arn:aws:iam::975050076353:role/rds-monitoring-role"
-      MaxAllocatedStorage: 12
+      #MaxAllocatedStorage: 12
       Tags:
         - Key: RDSbackup
           Value: "true"
